@@ -856,12 +856,12 @@ require('lazy').setup({
   { -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
     config = function()
-      local status, conigs = pcall(require, 'nvim-treesitter.configs')
+      local status, configs = pcall(require, 'nvim-treesitter.configs')
       if not status then
-        print "Treesitter conigs not found, try running :Lazy install"
+        print "Treesitter configs not found, try running :Lazy install"
         return
       end
-      config.setup {
+      configs.setup {
         ensure_installed = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc' },
         auto_install = true,
         highlight = {

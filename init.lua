@@ -84,6 +84,22 @@ I hope you enjoy your Neovim journey,
 P.S. You can delete this when you're done too. It's your config now! :)
 --]]
 
+-- Automatically pull changes from git on startup
+vim.api.nvim_create_autocmd('VimEnter', {
+  callback = function()
+    local git_dir = vim.fn.stdpath 'config'
+    -- Run git pull asynchronously so it doesn't freeze Neovim
+    vim.fn.jobstart('git -C ' .. git_dir .. ' pull', {
+      on_exit = function(_, exit_code)
+        if exit_code == 0 then
+          -- Optional: Notify if something actually changed
+          print 'Config updated via git pull'
+        end
+      end,
+    })
+  end,
+})
+
 -- Set <space> as the leader key
 -- See `:help mapleader`
 --  NOTE: Must happen before plugins are loaded (otherwise wrong leader will be used)
